@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0f1b2d">
+<title>Earshot English: Kitchen</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2246%22 fill=%22%233fe0c5%22/%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2222%22 fill=%22%23ffc83d%22/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js" } }</script>
+</head>
+<body>
+<div id="app">
+  <canvas id="c"></canvas>
+  <div id="fx"></div>
+  <div id="flash"></div>
+
+  <div id="hud" class="hidden">
+    <div class="top">
+      <div class="stat"><b id="score">0</b><small>SCORE</small></div>
+      <div class="timer">
+        <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="28" class="track"/><circle id="ring" cx="32" cy="32" r="28" class="bar"/></svg>
+        <b id="time">60</b>
+      </div>
+      <div class="stat right"><b id="streak">0</b><small>STREAK</small><i id="mult">x1</i></div>
+    </div>
+    <button id="quit" aria-label="Quit">✕</button>
+    <div id="combo"></div>
+    <div class="prompt" id="prompt">
+      <button id="replay" class="round" aria-label="Hear it again">
+        <svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path class="w1" d="M16 8.5a5 5 0 0 1 0 7"/><path class="w2" d="M18.5 6a8.5 8.5 0 0 1 0 12"/></svg>
+      </button>
+      <div class="ptext">
+        <div id="plisten"><span></span><span></span><span></span><span></span><span></span><em>Listen…</em></div>
+        <div id="pword"></div>
+        <div id="pjp"></div>
+      </div>
+      <button id="jpbtn" class="round jp" aria-label="Japanese hint">あ</button>
+    </div>
+    <div id="hint">Drag to look around · Tap the thing you hear</div>
+  </div>
+
+  <div id="menu" class="screen">
+    <div class="panel">
+      <div class="logo"><span class="ear">EAR</span><span class="shot">SHOT</span></div>
+      <div class="tag">Hear it in English. Find it. Hit it.</div>
+      <div class="scene-chip">Kitchen</div>
+      <button id="play" class="big">TAP TO PLAY</button>
+      <div class="levels" id="levels"></div>
+      <label class="toggle"><input type="checkbox" id="jptoggle"><span class="sw"></span> Japanese hints（日本語ヒント）</label>
+      <div class="soon">More scenes coming: <span>Bathroom</span><span>Streets</span><span>Movie Theater</span></div>
+      <div class="sound-note">Turn your sound on. On iPhone, switch off silent mode.</div>
+    </div>
+  </div>
+
+  <div id="count" class="hidden"></div>
+
+  <div id="results" class="screen hidden">
+    <div class="panel">
+      <div class="r-title">TIME'S UP!</div>
+      <div class="stars" id="stars"></div>
+      <div class="r-score"><b id="rscore">0</b><small id="rbest"></small></div>
+      <div class="r-stats" id="rstats"></div>
+      <div class="r-list-title">Words this round</div>
+      <div class="r-list" id="rlist"></div>
+      <div class="r-buttons">
+        <button id="again" class="big">PLAY AGAIN</button>
+        <button id="next" class="big alt">NEXT LEVEL ▶</button>
+        <button id="tomenu" class="link">Menu</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="module" src="game.js"></script>
+</body>
+</html>
