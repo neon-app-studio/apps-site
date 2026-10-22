@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Etsy connection code</title>
+<style>
+body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;max-width:720px;margin:0 auto;padding:24px;line-height:1.5;color:#1f2937;font-size:18px}
+h1{color:#0f766e;font-size:1.5em}
+.box{width:100%;box-sizing:border-box;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:17px;padding:14px;border:2px solid #0f766e;border-radius:10px;background:#f0fdfa;word-break:break-all;min-height:120px}
+button{margin-top:12px;font-size:20px;padding:14px 22px;border:0;border-radius:10px;background:#0f766e;color:#fff;width:100%}
+.muted{color:#4b5563;font-size:15px}.err{color:#b91c1c}
+</style>
+</head><body>
+<h1 id="title">Etsy connection code</h1>
+<p id="msg">Copy this code and paste it into the secure box in chat.</p>
+<textarea id="code" class="box" readonly></textarea>
+<button id="copy" type="button">Copy code</button>
+<p class="muted" id="statep"></p>
+<p class="muted">This page only shows the code on your screen. It does not save or send it anywhere. The code works once and expires in a few minutes.</p>
+<script>
+(function(){
+  var p = new URLSearchParams(location.search);
+  var code = p.get('code'), state = p.get('state'), err = p.get('error');
+  var box = document.getElementById('code'), msg = document.getElementById('msg');
+  if (err) {
+    msg.className = 'err';
+    msg.textContent = 'Etsy did not connect: ' + (p.get('error_description') || err) + '. Go back to chat and ask for a new link.';
+    box.value = 'error: ' + err; 
+  } else if (code) {
+    box.value = state ? (code + '\nstate: ' + state) : code;
+  } else {
+    msg.textContent = 'No code found. Open the Etsy link from chat and press Allow; you will land back here with your code.';
+  }
+  if (state) document.getElementById('statep').textContent = 'Check code: ' + state;
+  document.getElementById('copy').onclick = function(){
+    var b = this;
+    function ok(){ b.textContent = 'Copied! Now paste it in chat'; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(box.value).then(ok, function(){ box.select(); document.execCommand('copy'); ok(); });
+    } else { box.select(); document.execCommand('copy'); ok(); }
+  };
+  // Remove the code from the address bar/history after reading it
+  try { history.replaceState(null, '', location.pathname); } catch(e){}
+})();
+</script>
+</body></html>
